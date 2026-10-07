@@ -9,91 +9,133 @@
   <meta name="theme-color" content="#090d16">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #090d16;
-      --card-bg: #131b2e;
-      --card-inner: #0b1120;
+      --card-bg: #111827;
+      --card-inner: #0d1322;
+      --border: #1f293d;
       --text: #f8fafc;
       --text-muted: #94a3b8;
-      --border: #1e293b;
       --primary: #f59e0b;
       --emerald: #10b981;
       --cyan: #06b6d4;
+      --red: #ef4444;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Plus Jakarta Sans", sans-serif; }
-    body { background: var(--bg); color: var(--text); min-height: 100vh; padding: 12px; display: flex; justify-content: center; }
-    .app-container { width: 100%; max-width: 560px; background: var(--card-bg); border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); overflow: hidden; display: flex; flex-direction: column; }
-    
+    body { background: var(--bg); color: var(--text); min-height: 100vh; padding: 10px; display: flex; justify-content: center; }
+    .app-container { width: 100%; max-width: 520px; background: var(--card-bg); border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); overflow: hidden; display: flex; flex-direction: column; border: 1px solid rgba(255,255,255,0.06); }
+
     /* HEADER */
-    header { background: linear-gradient(180deg, rgba(245, 158, 11, 0.15) 0%, rgba(19, 27, 46, 0) 100%); padding: 16px; text-align: center; border-bottom: 1px solid var(--border); }
+    header { background: linear-gradient(180deg, rgba(245, 158, 11, 0.16) 0%, rgba(17, 24, 39, 0) 100%); padding: 14px 16px 10px 16px; text-align: center; border-bottom: 1px solid var(--border); }
     .brand-wrap { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 6px; }
-    .brand-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); }
-    .header-title { font-size: 20px; font-weight: 900; background: linear-gradient(135deg, #fbbf24, #f97316); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .header-subtitle { font-size: 11.5px; color: var(--text-muted); }
-    
+    .brand-avatar { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); }
+    .header-title { font-size: 19px; font-weight: 900; background: linear-gradient(135deg, #fbbf24, #f97316); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.2px; }
+    .header-subtitle { font-size: 11px; color: var(--text-muted); font-weight: 600; }
+
     /* 2 TAB SWITCHER */
-    .tab-switcher { display: grid; grid-template-columns: 1fr 1fr; background: #090d16; margin: 12px 16px 4px 16px; border-radius: 14px; padding: 4px; border: 1px solid var(--border); gap: 6px; }
+    .tab-switcher { display: grid; grid-template-columns: 1fr 1fr; background: #090d16; margin: 10px 14px 4px 14px; border-radius: 14px; padding: 4px; border: 1px solid var(--border); gap: 6px; }
     .tab-btn { border: none; background: transparent; color: var(--text-muted); font-size: 13px; font-weight: 800; padding: 11px 8px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.2s; }
     .tab-btn.active { background: linear-gradient(135deg, #f59e0b, #d97706); color: #000; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35); }
     .tab-btn.tab-img.active { background: linear-gradient(135deg, #06b6d4, #0891b2); color: #fff; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.35); }
-    
-    /* STATS */
-    .stats-bar { display: flex; justify-content: space-between; align-items: center; padding: 6px 16px; font-size: 12px; color: var(--text-muted); }
-    .progress-bar-bg { width: 100%; height: 6px; background: rgba(255,255,255,0.06); border-radius: 6px; overflow: hidden; margin-top: 4px; }
+
+    /* STATS & PROGRESS */
+    .stats-bar { display: flex; justify-content: space-between; align-items: center; padding: 6px 16px 2px 16px; font-size: 12px; color: var(--text-muted); font-weight: 700; }
+    .progress-bar-bg { width: 100%; height: 5px; background: rgba(255,255,255,0.06); border-radius: 6px; overflow: hidden; margin-top: 4px; }
     .progress-bar-fill { height: 100%; background: linear-gradient(90deg, #f59e0b, #10b981); width: 0%; transition: width 0.3s; }
+
+    /* ACTIVE CARD */
+    .current-card { margin: 10px 14px 12px 14px; background: var(--card-inner); border: 1px solid var(--border); border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
     
-    /* CURRENT CARD */
-    .current-card { margin: 10px 16px; background: var(--card-inner); border: 1px solid var(--border); border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
-    .current-header { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-    .badge-stt { font-size: 12px; font-weight: 900; background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 3px 8px; border-radius: 8px; border: 1px solid rgba(245, 158, 11, 0.35); }
-    .badge-score { font-size: 12px; font-weight: 900; background: rgba(6, 182, 212, 0.2); color: #22d3ee; padding: 3px 8px; border-radius: 8px; border: 1px solid rgba(6, 182, 212, 0.35); }
-    .badge-status { font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 8px; }
-    .badge-status.pending { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.35); }
-    .badge-status.done { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.35); }
-    .badge-status.ready { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.35); }
+    /* CARD HEADER */
+    .card-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+    .stt-group { display: flex; align-items: center; gap: 8px; }
+    .badge-stt { font-size: 12px; font-weight: 900; background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 3px 9px; border-radius: 8px; border: 1px solid rgba(245, 158, 11, 0.35); font-family: 'JetBrains Mono', monospace; }
+    .badge-category { font-size: 11px; font-weight: 700; color: var(--text-muted); max-width: 170px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     
-    .current-title { font-size: 15px; font-weight: 800; color: #fff; line-height: 1.4; }
+    .nav-buttons { display: flex; align-items: center; gap: 6px; }
+    .btn-nav { background: #162035; border: 1px solid var(--border); color: #cbd5e1; font-size: 11.5px; font-weight: 800; padding: 4px 10px; border-radius: 8px; cursor: pointer; transition: all 0.15s; }
+    .btn-nav:hover { background: #223150; color: #fff; }
+    .btn-nav:active { transform: scale(0.95); }
+
+    .current-title { font-size: 15.5px; font-weight: 800; color: #fff; line-height: 1.45; }
+
+    /* 5-ROW ACTION BUTTONS GRID */
+    .actions-grid { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+    .btn-row-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     
-    .media-preview-box { background: #060911; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center; min-height: 140px; position: relative; }
-    .media-preview-box img { width: 100%; max-height: 280px; object-fit: contain; cursor: zoom-in; }
-    
-    /* BUTTONS */
-    .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 0 16px 8px 16px; }
-    .btn { border: none; border-radius: 12px; padding: 12px 10px; font-size: 13px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.2s; }
-    .btn-drive { background: rgba(255,255,255,0.08); color: #fff; border: 1px solid var(--border); }
-    .btn-drive:hover { background: rgba(255,255,255,0.15); }
-    .btn-next { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: #fff; }
-    .btn-done-toggle { grid-column: span 2; background: rgba(255, 255, 255, 0.05); color: #94a3b8; border: 1px solid var(--border); }
-    .btn-done-toggle.is-done { background: rgba(16, 185, 129, 0.2); color: #10b981; border-color: rgba(16, 185, 129, 0.4); }
-    
-    /* COPY GRID */
-    .copy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 0 16px 14px 16px; }
-    .btn-copy { background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.25); color: #fbbf24; border-radius: 12px; padding: 11px 8px; font-size: 12px; font-weight: 700; cursor: pointer; text-align: center; transition: all 0.15s; }
-    .btn-copy:active { background: var(--primary); color: #000; transform: scale(0.97); }
-    .btn-copy.btn-fb { grid-column: span 2; background: rgba(24, 119, 242, 0.18); border-color: rgba(24, 119, 242, 0.45); color: #60a5fa; font-weight: 800; }
-    .btn-copy.btn-pinned { grid-column: span 2; background: rgba(168, 85, 247, 0.18); border-color: rgba(168, 85, 247, 0.4); color: #c084fc; }
-    
-    /* LIST SECTION */
-    .list-section { padding: 12px 16px 16px 16px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px; background: rgba(11, 17, 32, 0.4); }
-    .search-input { width: 100%; background: #090d16; border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; font-size: 13px; color: #fff; outline: none; }
-    .filter-chips { display: flex; gap: 6px; }
-    .filter-chip { background: #090d16; border: 1px solid var(--border); color: var(--text-muted); font-size: 11px; padding: 5px 10px; border-radius: 20px; cursor: pointer; }
-    .filter-chip.active { background: var(--primary); color: #000; font-weight: 800; border-color: var(--primary); }
-    .table-container { max-height: 220px; overflow-y: auto; border: 1px solid var(--border); border-radius: 12px; }
-    table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
-    th { background: #090d16; padding: 8px; text-align: left; color: var(--text-muted); position: sticky; top: 0; }
-    td { padding: 8px; border-bottom: 1px solid var(--border); cursor: pointer; }
-    tr.active { background: rgba(245, 158, 11, 0.15); }
-    tr:hover { background: rgba(255,255,255,0.03); }
-    
+    .btn-act { height: 42px; border: none; border-radius: 12px; padding: 0 10px; font-size: 12.5px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.15s; user-select: none; }
+    .btn-act:active { transform: scale(0.97); }
+
+    /* ROW 1: XEM DRIVE & TẢI DRIVE */
+    .btn-view-drive { background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.35); color: #38bdf8; }
+    .btn-view-drive:hover { background: rgba(56, 189, 248, 0.25); }
+    .btn-download-drive { background: rgba(16, 185, 129, 0.18); border: 1px solid rgba(16, 185, 129, 0.4); color: #34d399; }
+    .btn-download-drive:hover { background: rgba(16, 185, 129, 0.28); }
+
+    /* ROW 2: CAPTION FB & BÌNH LUẬN */
+    .btn-copy-fb { background: rgba(24, 119, 242, 0.18); border: 1px solid rgba(24, 119, 242, 0.45); color: #60a5fa; }
+    .btn-copy-fb:hover { background: rgba(24, 119, 242, 0.28); }
+    .btn-copy-pinned { background: rgba(168, 85, 247, 0.18); border: 1px solid rgba(168, 85, 247, 0.4); color: #c084fc; }
+    .btn-copy-pinned:hover { background: rgba(168, 85, 247, 0.28); }
+
+    /* ROW 3: CAPTION TIKTOK & CAPTION ZALO */
+    .btn-copy-tiktok { background: rgba(244, 63, 94, 0.15); border: 1px solid rgba(244, 63, 94, 0.35); color: #fb7185; }
+    .btn-copy-tiktok:hover { background: rgba(244, 63, 94, 0.25); }
+    .btn-copy-zalo { background: rgba(14, 165, 233, 0.15); border: 1px solid rgba(14, 165, 233, 0.35); color: #38bdf8; }
+    .btn-copy-zalo:hover { background: rgba(14, 165, 233, 0.25); }
+
+    /* ROW 4: YOUTUBE TIÊU ĐỀ & MÔ TẢ (HOẶC INSTA & PROMPT AI Ở TAB ẢNH) */
+    .btn-copy-yt-title { background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.35); color: #fbbf24; }
+    .btn-copy-yt-title:hover { background: rgba(245, 158, 11, 0.25); }
+    .btn-copy-yt-desc { background: rgba(203, 213, 225, 0.1); border: 1px solid var(--border); color: #cbd5e1; }
+    .btn-copy-yt-desc:hover { background: rgba(203, 213, 225, 0.18); }
+
+    /* ROW 5: NÚT ĐÁNH DẤU ĐÃ ĐĂNG - FULL WIDTH, NỔI BẬT */
+    .btn-mark-posted { width: 100%; height: 46px; border-radius: 13px; font-size: 13.5px; font-weight: 900; letter-spacing: 0.3px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s; border: none; }
+    .btn-mark-posted.state-pending { background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff; box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35); }
+    .btn-mark-posted.state-pending:hover { background: linear-gradient(135deg, #dc2626, #b91c1c); }
+    .btn-mark-posted.state-done { background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(16, 185, 129, 0.45); color: #34d399; }
+    .btn-mark-posted.state-done:hover { background: rgba(16, 185, 129, 0.3); }
+
+    /* PREVIEW FRAME (DƯỚI 5 HÀNG NÚT, KÍCH THƯỚC BẰNG NHAU CHO CẢ VIDEO & ẢNH) */
+    .preview-section { width: 100%; display: flex; flex-direction: column; gap: 6px; }
+    .preview-header-label { display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; color: var(--text-muted); font-weight: 700; padding: 0 2px; }
+    .preview-box { width: 100%; height: 260px; background: #050811; border-radius: 14px; border: 1px solid var(--border); overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative; }
+    .preview-box iframe { width: 100%; height: 100%; border: none; border-radius: 14px; }
+    .preview-box img { width: 100%; height: 100%; object-fit: contain; cursor: zoom-in; }
+    .preview-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: var(--text-muted); padding: 16px; text-align: center; }
+    .preview-placeholder .icon { font-size: 38px; }
+    .preview-placeholder .hint { font-size: 11.5px; color: #64748b; }
+
+    /* LIST & SEARCH SECTION (DƯỚI CÙNG) */
+    .list-section { padding: 12px 14px 16px 14px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 10px; background: rgba(11, 17, 32, 0.5); }
+    .search-input { width: 100%; background: #090d16; border: 1px solid var(--border); border-radius: 12px; padding: 10px 14px; font-size: 13px; color: #fff; outline: none; transition: border-color 0.2s; }
+    .search-input:focus { border-color: var(--primary); }
+
+    .filter-chips { display: flex; gap: 6px; overflow-x: auto; }
+    .filter-chip { background: #090d16; border: 1px solid var(--border); color: var(--text-muted); font-size: 11.5px; font-weight: 800; padding: 6px 12px; border-radius: 18px; cursor: pointer; white-space: nowrap; transition: all 0.15s; }
+    .filter-chip.active { background: var(--primary); color: #000; border-color: var(--primary); }
+    .filter-chip.chip-pending.active { background: #ef4444; color: #fff; border-color: #ef4444; }
+    .filter-chip.chip-done.active { background: #10b981; color: #000; border-color: #10b981; }
+
+    .table-container { max-height: 240px; overflow-y: auto; border: 1px solid var(--border); border-radius: 12px; background: #090d16; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    th { background: #131d31; padding: 8px 10px; text-align: left; color: var(--text-muted); font-size: 11px; font-weight: 800; position: sticky; top: 0; border-bottom: 1px solid var(--border); }
+    td { padding: 9px 10px; border-bottom: 1px solid rgba(255,255,255,0.04); cursor: pointer; vertical-align: middle; }
+    tr:hover { background: rgba(255,255,255,0.04); }
+    tr.active { background: rgba(245, 158, 11, 0.15); font-weight: 700; }
+    .badge-status { font-size: 11px; font-weight: 800; padding: 2px 7px; border-radius: 6px; }
+    .badge-status.pending { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+    .badge-status.done { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+
     /* TOAST */
-    .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #10b981; color: #000; font-weight: 800; font-size: 13px; padding: 10px 20px; border-radius: 20px; z-index: 999; display: none; box-shadow: 0 6px 20px rgba(0,0,0,0.5); }
-    
+    .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #10b981; color: #000; font-weight: 900; font-size: 13px; padding: 10px 22px; border-radius: 20px; z-index: 999; display: none; box-shadow: 0 6px 20px rgba(0,0,0,0.6); }
+
     /* LIGHTBOX */
-    .lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 16px; }
-    .lightbox img { max-width: 100%; max-height: 90vh; border-radius: 12px; }
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.92); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 14px; }
+    .lightbox img { max-width: 100%; max-height: 92vh; border-radius: 12px; object-fit: contain; }
   </style>
 </head>
 <body>
@@ -108,53 +150,107 @@
       </div>
     </header>
 
-    <!-- SWITCH 2 TAB -->
+    <!-- SWITCH 2 TAB CHÍNH -->
     <div class="tab-switcher">
       <button class="tab-btn active" id="tabVideoBtn" onclick="switchTab('video')">🎬 ĐĂNG VIDEO (<span id="vCount">0</span>)</button>
       <button class="tab-btn tab-img" id="tabImageBtn" onclick="switchTab('image')">📸 ĐĂNG ẢNH (<span id="iCount">0</span>)</button>
     </div>
 
-    <!-- STATS -->
+    <!-- STATS & PROGRESS BAR -->
     <div class="stats-bar">
       <span id="statText">Đang tải...</span>
       <span id="statPercent">0%</span>
     </div>
-    <div style="padding: 0 16px;"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div></div>
+    <div style="padding: 0 14px;"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div></div>
 
-    <!-- CURRENT CARD -->
+    <!-- ACTIVE CARD -->
     <div class="current-card">
-      <div class="current-header">
-        <span class="badge-stt" id="currStt">#1</span>
-        <span class="badge-score" id="currScore" style="display:none;">⭐ 9.8</span>
-        <span class="badge-status pending" id="currStatus">Chưa đăng</span>
+      <div class="card-top">
+        <div class="stt-group">
+          <span class="badge-stt" id="currStt">#---</span>
+          <span class="badge-category" id="currCategory">Phúc Học Điều Hay</span>
+        </div>
+        <div class="nav-buttons">
+          <button class="btn-nav" onclick="prevItem()" title="Bài trước">⬅️ Trước</button>
+          <button class="btn-nav" onclick="nextItem()" title="Bài tiếp theo">Sau ➡️</button>
+        </div>
       </div>
-      <div class="current-title" id="currTitle">Tiêu đề bài viết</div>
-      <div class="media-preview-box" id="mediaBox">
-        <!-- Media Preview -->
+
+      <div class="current-title" id="currTitle">Đang nạp bài viết...</div>
+
+      <!-- 5 HÀNG NÚT BẤM CÂN XỨNG -->
+      <div class="actions-grid">
+        <!-- HÀNG 1: XEM DRIVE (TRÊN KHUNG XEM) & TẢI VỀ MÁY -->
+        <div class="btn-row-2col">
+          <button class="btn-act btn-view-drive" id="btnViewDrive" onclick="triggerViewInFrame()">
+            <span>👁️ Xem Drive</span>
+          </button>
+          <button class="btn-act btn-download-drive" id="btnDownloadDrive" onclick="triggerDownloadDrive()">
+            <span id="lblDownloadDrive">📥 Tải Drive</span>
+          </button>
+        </div>
+
+        <!-- HÀNG 2: CAPTION FACEBOOK & BÌNH LUẬN -->
+        <div class="btn-row-2col">
+          <button class="btn-act btn-copy-fb" onclick="copyCurrentField('facebook', 'Caption Facebook')">
+            <span>📘 Caption Facebook</span>
+          </button>
+          <button class="btn-act btn-copy-pinned" onclick="copyCurrentField('pinnedComment', 'Bình Luận')">
+            <span>📌 Bình Luận</span>
+          </button>
+        </div>
+
+        <!-- HÀNG 3: CAPTION TIKTOK & CAPTION ZALO -->
+        <div class="btn-row-2col">
+          <button class="btn-act btn-copy-tiktok" onclick="copyCurrentField('tiktok', 'Caption TikTok')">
+            <span>🎵 Caption TikTok</span>
+          </button>
+          <button class="btn-act btn-copy-zalo" onclick="copyCurrentField('zalo', 'Caption Zalo')">
+            <span>💬 Caption Zalo</span>
+          </button>
+        </div>
+
+        <!-- HÀNG 4: CAPTION YOUTUBE & MÔ TẢ YOUTUBE (HOẶC INSTA & PROMPT AI Ở TAB ẢNH) -->
+        <div class="btn-row-2col">
+          <button class="btn-act btn-copy-yt-title" id="btnRow4Col1" onclick="copyRow4Col1()">
+            <span id="lblRow4Col1">▶️ Caption YouTube</span>
+          </button>
+          <button class="btn-act btn-copy-yt-desc" id="btnRow4Col2" onclick="copyRow4Col2()">
+            <span id="lblRow4Col2">📄 Mô Tả YouTube</span>
+          </button>
+        </div>
+
+        <!-- HÀNG 5: NÚT ĐÁNH DẤU ĐÃ ĐĂNG - DÀI, MÀU ĐỎ NỔI BẬT -->
+        <button class="btn-mark-posted state-pending" id="btnMarkPosted" onclick="toggleCurrentDone()">
+          <span id="lblMarkPosted">🔴 ĐÁNH DẤU: ĐÃ ĐĂNG BÀI</span>
+        </button>
+      </div>
+
+      <!-- KHUNG XEM TRỰC TIẾP VIDEO & ẢNH (ĐẶT DƯỚI 5 HÀNG NÚT, KÍCH THƯỚC BẰNG NHAU) -->
+      <div class="preview-section">
+        <div class="preview-header-label">
+          <span id="previewTypeLabel">Khung Xem Trực Tiếp:</span>
+          <span id="previewActionHint" style="font-size:11px;color:#38bdf8;cursor:pointer;" onclick="openDriveExternalTab()">Mở tab Drive ↗</span>
+        </div>
+        <div class="preview-box" id="previewMediaBox">
+          <!-- Video Iframe hoặc Thẻ Img sẽ được render tại đây -->
+        </div>
       </div>
     </div>
 
-    <!-- ACTIONS -->
-    <div class="btn-row">
-      <button class="btn btn-drive" id="btnDrive" onclick="openDriveLink()">☁️ Mở Drive / Xem</button>
-      <button class="btn btn-next" onclick="nextItem()">Tiếp Theo ➡️</button>
-      <button class="btn btn-done-toggle" id="btnDoneToggle" onclick="toggleCurrentDone()">⚪ Đánh Dấu: Đã Đăng</button>
-    </div>
-
-    <!-- COPY BUTTONS GRID (Được render động theo Tab) -->
-    <div class="copy-grid" id="copyGrid"></div>
-
-    <!-- LIST & SEARCH -->
+    <!-- LIST & SEARCH SECTION (DƯỚI CÙNG - MẶC ĐỊNH LỌC CHƯA ĐĂNG) -->
     <div class="list-section">
-      <input type="text" class="search-input" id="searchInput" placeholder="🔍 Tìm kiếm chủ đề..." oninput="renderTable()">
       <div class="filter-chips">
-        <button class="filter-chip active" onclick="setFilter('all', this)">Tất cả</button>
-        <button class="filter-chip" onclick="setFilter('pending', this)">Chưa đăng</button>
-        <button class="filter-chip" onclick="setFilter('done', this)">Đã đăng</button>
+        <button class="filter-chip chip-pending active" id="chipPending" onclick="setFilter('pending')">⏳ Chưa đăng (<span id="countPending">0</span>)</button>
+        <button class="filter-chip chip-done" id="chipDone" onclick="setFilter('done')">✅ Đã đăng (<span id="countDone">0</span>)</button>
+        <button class="filter-chip" id="chipAll" onclick="setFilter('all')">Tất cả (<span id="countAll">0</span>)</button>
       </div>
+
+      <input type="text" class="search-input" id="searchInput" placeholder="🔍 Tìm theo STT (#1) hoặc từ khóa..." oninput="renderTable()">
+
       <div class="table-container">
-        <table id="dataTable">
-          <thead><tr><th>#</th><th>Tiêu đề</th><th>Trạng thái</th></tr></thead>
+        <table>
+          <thead><tr><th style="width:46px;">STT</th><th>Tiêu đề bài viết</th><th style="width:75px;">Trạng thái</th></tr></thead>
           <tbody id="tableBody"></tbody>
         </table>
       </div>
@@ -168,23 +264,11 @@
     var VIDEO_ITEMS = [{"stt":1,"category":"Phúc học cách sống","title":"Biết cúi đầu xin lỗi khi mình làm sai","status":"Đã đăng","videoUrl":"https://drive.google.com/file/d/1Y7SoVQrTdExDcTidO_g3tTWHXN-Zv4_m/view?usp=drivesdk","youtubeTitle":"Dạy Trẻ Biết Xin Lỗi Khi Làm Sai: Bài Học Về Sự Dũng Cảm Và Trung Thực | #phuchocdieuhay","youtubeDesc":"Trong cuộc sống, ai cũng có lúc mắc sai lầm. Thay vì trốn tránh hay đổ lỗi, hãy dạy con cách dũng cảm đối diện và nói lời xin lỗi chân thành. Video từ kênh Phúc Học Điều Hay gửi gắm thông điệp về sự trung thực và trách nhiệm. Biết nhận lỗi không làm con thấp kém, mà giúp con trưởng thành và đáng tin cậy hơn. Mong rằng cha mẹ sẽ cùng con lan tỏa sự tử tế này. Hãy nhấn Subscribe để cùng con học thêm nhiều điều hay mỗi ngày nhé!\n\n#phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","tiktok":"Xin lỗi không làm con thấp kém, đó là bản lĩnh! Cha mẹ xem ngay để cùng con học bài học về sự dũng cảm và trung thực nhé. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","facebook":"Dạy con biết nhận lỗi là dạy con lòng dũng cảm. Lời xin lỗi chân thành giúp chữa lành mọi tổn thương và giữ trọn niềm tin. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","zalo":"Con ơi, biết nhận lỗi khi sai là con đang sống trung thực và dũng cảm. Lời xin lỗi đúng lúc là liều thuốc chữa lành mọi lỗi lầm. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","instagram":"Sự chân thành bắt đầu từ lời xin lỗi. Hãy dạy con biết cúi đầu đúng lúc để nhận lại sự bao dung và niềm tin từ mọi người. ✨ #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","pinnedComment":"Ba mẹ thường dạy bé nói lời xin lỗi như thế nào khi làm sai? Hãy cùng chia sẻ câu chuyện của gia đình mình để lan tỏa bài học hay này nhé! ❤️"},{"stt":2,"category":"Phúc học cách sống","title":"Phúc học cách sống — Thật thà là gốc rễ của danh dự","status":"Đã đăng","videoUrl":"https://drive.google.com/file/d/16ypEAmltPF120x3zKlnWxqa7eryd7qSW/view?usp=drivesdk","youtubeTitle":"Thật Thà Là Gốc Rễ Của Danh Dự: Bài Học Dạy Con Sống Trung Thực | Phúc Học Điều Hay #phuchocdieuhay","youtubeDesc":"Sự thật thà chính là món quà quý giá nhất mà mẹ muốn con luôn mang theo bên mình. Một lời nói dối có thể giúp con thoát tội nhất thời, nhưng sẽ lấy đi sự tin tưởng - thứ vốn mỏng manh như tờ giấy trắng, đã vò nát thì khó lòng làm phẳng lại. Qua video này, Phúc Học Điều Hay hy vọng cha mẹ và các con sẽ thấu hiểu: Trung thực không chỉ là không nói dối, mà là dũng cảm đối diện với lỗi lầm để giữ gìn danh dự bản thân. Hãy nhấn Subscribe để cùng con học thêm nhiều điều hay mỗi ngày nhé!\n\n#phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","tiktok":"Một lời nói dối nhỏ có thể làm mất đi niềm tin mãi mãi. Cùng con học bài học về sự thật thà để trưởng thành tử tế hơn mỗi ngày! #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","facebook":"Sự thật thà là món quà quý giá mẹ mong con giữ lấy. Đừng vì sợ hãi mà đánh mất niềm tin, bởi danh dự mới là gốc rễ của con người. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","zalo":"Con ơi, hãy sống thật thà để lòng bình yên và nhận được sự nể trọng. Trung thực chính là gốc rễ làm nên một con người tử tế. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","instagram":"Thật thà là gốc rễ của danh dự. Hãy dạy con sự trung thực để nhận lấy nể trọng và yêu mến từ mọi người xung quanh. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","pinnedComment":"Bố mẹ thường làm gì khi phát hiện con nói dối? Hãy cùng chia sẻ cách giáo dục con sự trung thực ở dưới bình luận này nhé!"},{"stt":3,"category":"Phúc học cách sống","title":"Biết nói lời cảm ơn từ những điều nhỏ bé nhất","status":"Đã đăng","videoUrl":"https://drive.google.com/file/d/1fnzdQTSZ8WOR-rRouZsv3JDg1wrNOkeb/view?usp=drivesdk","youtubeTitle":"Dạy Con Biết Ơn Từ Những Điều Nhỏ Bé Để Thành Công Và Hạnh Phúc | #phuchocdieuhay","youtubeDesc":"Biết ơn không chỉ là lời nói, mà là sự trân trọng những hy sinh thầm lặng của cha mẹ. Từng bát cơm, manh áo đều đổi bằng mồ hôi nước mắt. Khi con biết trân quý những điều bình dị, trái tim con sẽ luôn ấm áp và rộng mở. Đây là hành trang quý giá giúp con tự lập và thành công mai sau. Hãy cùng Phúc Học Điều Hay nuôi dưỡng tâm hồn con trẻ mỗi ngày bằng những bài học đạo đức sâu sắc. Đừng quên nhấn Đăng ký kênh để ủng hộ chúng mình nhé!\n\n#phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","tiktok":"Dạy con biết ơn từ điều nhỏ nhất để trưởng thành tử tế. Đừng bỏ lỡ bài học chạm đến trái tim này! #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","facebook":"Lòng biết ơn bắt đầu từ bát cơm dẻo, chiếc áo thơm. Đừng coi sự hy sinh của cha mẹ là hiển nhiên. Biết ơn để sống trọn vẹn hơn. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","zalo":"Lời cảm ơn là khởi đầu của nhân cách đẹp. Mong con luôn trân trọng tình yêu thương từ những điều giản đơn nhất mỗi ngày. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","instagram":"Biết ơn điều nhỏ bé để thấy đời ý nghĩa. Chút tình gửi con, mong con luôn sống tử tế và ấm áp. ✨ #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","pinnedComment":"Cha mẹ đã nhận được lời cảm ơn nào 'ngọt ngào' nhất từ con trẻ hôm nay chưa? Hãy cùng chia sẻ khoảnh khắc ấy để lan tỏa yêu thương nhé!"},{"stt":4,"category":"Phúc học cách sống","title":"Không tham lam những thứ không phải của mình","status":"Đã đăng","videoUrl":"https://drive.google.com/file/d/1XqFrWixkAQljKihJ60pZ3ECkps8CRSdc/view?usp=drivesdk","youtubeTitle":"Dạy Con Đừng Tham Lam: Bài Học Về Sự Ngay Thẳng Và Tự Trọng | Phúc Học Điều Hay #phuchocdieuhay","youtubeDesc":"“Con à, sống ngay thẳng là cách tốt nhất để thấy bình yên.” Video hôm nay từ Phúc Học Điều Hay gửi gắm thông điệp sâu sắc về lòng tự trọng: Đừng tham lam những thứ không thuộc về mình. Chỉ những gì do sức lao động chân chính tạo ra mới bền vững và đáng quý. Cha mẹ hãy cùng con nuôi dưỡng nhân cách, giúp con hiểu giá trị của sự nỗ lực để luôn thấy thanh thản trong tâm hồn. Đừng quên Đăng ký kênh (Subscribe) để cùng con học thêm nhiều điều hay mỗi ngày nhé!\n\n#phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","tiktok":"Lấy thứ không phải của mình là mất đi chính mình! Ba mẹ xem ngay để dạy con bài học về lòng tự trọng nhé. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","facebook":"Sống ngay thẳng, không tham lam là giữ lấy sự tự tôn và bình yên cho con. Hãy dạy trẻ trân trọng giá trị sức lao động. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","zalo":"Con ơi, hãy trân trọng những gì mình tự tay làm ra. Sống trung thực, không tham lam sẽ giúp con luôn bình yên và hạnh phúc. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","instagram":"Tâm hồn luôn bình yên khi ta sống ngay thẳng và không tham lam. Hãy giữ lấy cốt cách và sự tự tôn của chính mình. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","pinnedComment":"Theo ba mẹ, bài học về sự trung thực nên được dạy cho con từ khi nào là tốt nhất? Hãy chia sẻ cùng Phúc Học Điều Hay nhé!"},{"stt":5,"category":"Phúc học cách sống","title":"Giữ trọn lời hứa như vàng ngọc trong tim","status":"Đã làm video","videoUrl":"https://drive.google.com/file/d/1RCLryOKg_fsqZaV-xcZdBlwSRqMJvTZv/view?usp=drivesdk","youtubeTitle":"Dạy con giữ trọn lời hứa như vàng ngọc để sống bản lĩnh và ngay thẳng #phuchocdieuhay","youtubeDesc":"Chào mừng ba mẹ và các bạn nhỏ đến với Phúc Học Điều Hay!\n\n'Một lần bất tín, vạn lần bất tin' - Lời hứa không chỉ là lời nói, mà là thước đo nhân cách và lòng tự trọng của mỗi người. Video hôm nay gửi gắm bài học sâu sắc về chữ Tín, giúp con hiểu rằng uy tín chính là tấm giấy thông hành quý giá nhất để bước vào đời. Cha mẹ hãy cùng con rèn luyện thói quen giữ lời từ những việc nhỏ nhất để xây dựng bản lĩnh vững vàng và sống một đời không hổ thẹn.\n\nĐừng quên nhấn Đăng ký (Subscribe) kênh để đón xem thêm nhiều bài học nhân văn mỗi ngày!\n\n#phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","tiktok":"Bí quyết để ai cũng nể phục là GIỮ LỜI HỨA! Bài học đắt giá về lòng tự trọng cho con yêu. Cha mẹ xem ngay nhé! #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","facebook":"Giữ lời hứa là bài học bản lĩnh cha mẹ dạy con. Một lần bất tín, vạn lần bất tin. Hãy để uy tín là tấm giấy thông hành của con. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","zalo":"Con ơi, hãy giữ lời hứa như giữ vàng trong tim. Uy tín giúp con bước đi vững chãi và được mọi người tin yêu. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","instagram":"Uy tín là tấm giấy thông hành đưa con đi xa. Sống ngay thẳng, giữ lời hứa để tâm luôn bình an và tỏa sáng. ✨ #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","pinnedComment":"Ba mẹ thường dạy bé giữ lời hứa như thế nào? Hãy cùng chia sẻ những câu chuyện hoặc bài học thực tế của bé nhà mình dưới đây nhé!"},{"stt":6,"category":"Phúc học cách đối xử","title":"Hiếu thảo với cha mẹ, kính trọng ông bà","status":"Đã làm video","videoUrl":"https://drive.google.com/file/d/1lag5P8We4ljBN3DcGrBOV4dW_ixTzIfi/view?usp=drivesdk","youtubeTitle":"HIẾU THẢO VỚI CHA MẸ, HIẾU KÍNH VỚI ÔNG BÀ - Bài học gốc rễ để làm người | Phúc Học Điều Hay","youtubeDesc":"Lòng biết ơn và đạo hiếu chính là nền tảng vững chắc nhất của mỗi con người. Hy vọng video này sẽ giúp các con thấu hiểu hơn về giá trị của gia đình. #phuchocdieuhay #daohieu #giadinh #nuoidaycon","tiktok":"Đạo hiếu là hành trang quý giá nhất đời người. Con nghe mẹ dặn nhé! ❤️ #phuchocdieuhay #baihoccuocsong #giadinh #hieuthao","facebook":"Có những điều không thể đợi đến khi giàu sang mới thực hiện, đó chính là sự hiếu kính. Mong con luôn giữ trọn đạo làm con để vững bước vào đời.\n\n#phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","zalo":"Hiếu thảo với mẹ cha là phúc đức lớn nhất. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #longnhanai","instagram":"Chữ Hiếu luôn vẹn tròn trong tim con trẻ ✨ #phuchocdieuhay #baihoccuocsong #daycon #giadinh #longnhanai","pinnedComment":"Theo ba mẹ, hành động nhỏ nhất nào của con trẻ khiến chúng ta cảm thấy ấm lòng nhất? Hãy cùng chia sẻ dưới đây nhé!"},{"stt":7,"category":"Phúc học cách đối xử","title":"Biết thương người nghèo và sẻ chia tấm lòng","status":"Đã làm video","videoUrl":"https://drive.google.com/file/d/17KFq8VDdgCi-MZzRstvXGbpfwAM7qPl6/view?usp=drivesdk","youtubeTitle":"Biết Thương Người Nghèo & Sẻ Chia Tấm Lòng - Bài Học Làm Người Sâu Sắc #phuchocdieuhay","youtubeDesc":"Sự tử tế là món trang sức lộng lẫy nhất của mỗi con người. Mẹ mong con hiểu rằng, khi chúng ta biết sẻ chia, thế giới này sẽ trở nên tốt đẹp hơn rất nhiều. Hãy cùng lắng nghe những lời tâm tình dạy dỗ con về lòng nhân ái. #phuchocdieuhay #baihoccuocsong #dayconlamnguoi #nhanai","tiktok":"Trái tim ấm áp là hành trang quý nhất để con vào đời. 💖 #phuchocdieuhay #nuoidaycon #baihoccuocsong #songtuynhan #nhanai","facebook":"Giàu sang có thể mất đi, nhưng lòng nhân ái sẽ theo con suốt cả cuộc đời. Gửi con yêu bài học về sự sẻ chia và thấu hiểu... #phuchocdieuhay #tamlinh #giadinh #nuoidaycon","zalo":"Lòng nhân ái giúp con người gần nhau hơn. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #longnhanai","instagram":"Sẻ chia yêu thương để cuộc đời thêm ấm áp ✨ #phuchocdieuhay #baihoccuocsong #daycon #giadinh #longnhanai","pinnedComment":"Trong các đức tính, bạn mong muốn con mình sở hữu đức tính nào nhất? Hãy để lại ý kiến dưới phần bình luận nhé!"},{"stt":8,"category":"Phúc học về tiền","title":"CÀNG NGHÈO KHÓ — CÀNG PHẢI HỌC THÀNH TÀI","status":"Đã làm video","videoUrl":"https://drive.google.com/file/d/1WIsvpWvRgESh71ZHYHB8P0J2u5vOPmg0/view?usp=drivesdk","youtubeTitle":"CÀNG NGHÈO KHÓ, CÀNG PHẢI HỌC THÀNH TÀI | Lời nhắn nhủ sâu sắc của cha mẹ #phuchocdieuhay","youtubeDesc":"Nghèo không đáng sợ, đáng sợ là thiếu tri thức để vươn lên. Đoạn video là lời tâm tình của cha mẹ gửi đến con cái về giá trị của sự học trong nghịch cảnh. Hãy cùng lắng nghe để tiếp thêm động lực cho hành trình trưởng thành. #phuchocdieuhay #nuoidaycon #baihoccuocsong #dongluchoctap","tiktok":"Con đường ngắn nhất để thoát nghèo chính là sự học. Gửi các con yêu của cha mẹ! 💡 #phuchocdieuhay #giaoduc #dongluc #nuoidaycon #learnontiktok","facebook":"Cha mẹ không thể cho con một bệ đỡ bằng tiền bạc, nhưng sẽ luôn đồng hành cùng con trên con đường tri thức. Vì càng nghèo, chúng ta càng phải học để tự cứu lấy chính mình. ❤️ #phuchocdieuhay #giadinh #nuoidaycon #baihocquy","zalo":"Bài học quý cha mẹ gửi con: Càng nghèo càng phải nỗ lực học thành tài. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #dayconlamgiau","instagram":"Càng nghèo con càng phải học để chạm tay tới ước mơ và tương lai tươi sáng ✨ #phuchocdieuhay #baihoccuocsong #daycon #giadinh #dayconlamgiau","pinnedComment":"Con có tin rằng sự học có thể thay đổi hoàn toàn số phận của một người không? Hãy chia sẻ suy nghĩ của con nhé!"},{"stt":9,"category":"Phúc học về gia đình","title":"ĐỪNG TRÁCH XUẤT PHÁT ĐIỂM — HÃY TỰ TẠO VẠCH ĐÍCH","status":"Đã làm video","videoUrl":"https://drive.google.com/file/d/1axICho7EKUob39dOVf1106IoIUo30b8k/view?usp=drivesdk","youtubeTitle":"Đừng trách xuất phát điểm, hãy tự tạo vạch đích - Bài học bản lĩnh cho con #phuchocdieuhay","youtubeDesc":"Xuất phát điểm không định đoạt tương lai, chính nỗ lực của con mới tạo nên vạch đích rực rỡ. Video gửi gắm thông điệp về ý chí và bản lĩnh dành cho các bạn trẻ đang tuổi trưởng thành. #phuchocdieuhay #daycon #dongluc #giadinh","tiktok":"Con không chọn được nơi sinh ra, nhưng con hoàn toàn chọn được cách mình vươn tới vạch đích. Đừng bao giờ nản lòng nhé! 🌟 #phuchocdieuhay #dongluc #daycon #tamlytuoiteen","facebook":"Gửi con yêu: Đừng bao giờ trách mình sinh ra ở đâu, hãy tự hào về nơi con sẽ đến bằng chính đôi chân và nghị lực của mình. Một bài học sâu sắc dành cho cha mẹ và các con. #phuchocdieuhay #giadinh #nuoidaycon #baihoccuocsong","zalo":"Lời dạy thấm thía: Đừng trách vạch xuất phát, hãy nỗ lực vì tương lai con nhé. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #daoligiadinh","instagram":"Biết ơn cha mẹ đã cho con sinh mạng và tình thương ấm áp nhất cuộc đời ✨ #phuchocdieuhay #baihoccuocsong #daycon #giadinh #daoligiadinh","pinnedComment":"Con đã bao giờ cảm thấy chạnh lòng khi so sánh mình với bạn bè chưa? Đừng lo lắng, hãy cùng chia sẻ để cha mẹ lắng nghe và thấu hiểu con hơn nhé!"},{"stt":11,"category":"Phúc học về bản thân","title":"ĐI CHẬM MỘT CHÚT — NHƯNG ĐỪNG BỎ CUỘC","status":"Đã làm video","videoUrl":"https://drive.google.com/file/d/1mgKPtoL2u8ZHEBMzFPRSSIO43hYBq6VJ/view?usp=drivesdk","youtubeTitle":"ĐI CHẬM MỘT CHÚT, NHƯNG ĐỪNG BỎ CUỘC - Lời nhắn nhủ sâu sắc dành cho con #phuchocdieuhay","youtubeDesc":"Trên hành trình trưởng thành, đôi khi con cảm thấy mệt mỏi vì áp lực và sự so sánh. Video này là lời tâm tình của cha mẹ, tiếp thêm sức mạnh để con kiên trì với ước mơ của riêng mình. Đừng quên đăng ký kênh Phúc Học Điều Hay để nhận thêm nhiều bài học ý nghĩa nhé!","tiktok":"Đừng so sánh vạch xuất phát của mình với vạch đích của người khác. Chỉ cần không dừng lại, con sẽ tới đích! 🌿 #phuchocdieuhay #nuoidaycon #baihoccuocsong #giadinh","facebook":"Gửi con, những lúc con thấy áp lực vì học hành hay cuộc sống, hãy nhớ rằng: Đi chậm một chút cũng không sao, miễn là con đừng bỏ cuộc. Cha mẹ luôn tin ở con! ❤️\n\n#phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","zalo":"Bài học kiên trì: Đi chậm cũng được, quan trọng là vững bước không từ bỏ. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #kynangsong","instagram":"Kiên trì bền bỉ mỗi ngày, thành công sẽ mỉm cười với người không bỏ cuộc ✨ #phuchocdieuhay #baihoccuocsong #daycon #giadinh #kynangsong","pinnedComment":"Có bao giờ con cảm thấy áp lực vì thấy mình chậm hơn bạn bè không? Hãy hít một hơi thật sâu và bình luận 'Con sẽ cố gắng' để cùng nhau vững bước nhé!"},{"stt":12,"category":"Phúc học cách sống","title":"KHÔNG CẦN SO BÌ — BIẾT ĐỦ LÀ HẠNH PHÚC","status":"Đã làm video","videoUrl":"https://drive.google.com/file/d/14xRXD7C7mleOe8WXTIRjrOf5nAHk_9aK/view?usp=drivesdk","youtubeTitle":"KHÔNG CẦN SO BÌ, BIẾT ĐỦ LÀ HẠNH PHÚC - Bài Học Sâu Sắc Cha Gửi Con #phuchocdieuhay","youtubeDesc":"Cuộc sống không phải là một cuộc chạy đua với người khác, mà là hành trình trân trọng chính mình. Hãy cùng lắng nghe những lời tâm tình từ cha mẹ về giá trị của sự 'biết đủ' để tìm thấy hạnh phúc thực sự. #phuchocdieuhay #giaoducgiadinh #baihoccuocsong #nuoidaycon","tiktok":"Đừng mải chạy theo hào quang của người khác mà quên mất hạnh phúc quanh mình... 🍀 #phuchocdieuhay #nuoidaycon #trietlycuocsong #giadinh","facebook":"Con à, hạnh phúc không nằm ở việc con có bao nhiêu, mà nằm ở việc con biết ơn những gì mình đang có. Một chút tâm tình cùng con đêm muộn để thêm vững vàng giữa cuộc đời. ❤️ #phuchocdieuhay #tinhcamgiadinh #bietdu","zalo":"Con à, đừng nhìn sang manh áo nhà người khác, hãy trân quý sự ấm áp và bình yên của gia đình mình. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","instagram":"Tâm an vui khi con biết đủ và biết ơn cuộc đời ✨ Lời nhắn nhủ ấm áp cha mẹ gửi con. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","pinnedComment":"Có bao giờ con cảm thấy chạnh lòng khi nhìn thấy thành công của người khác không? Hãy cùng cha mẹ chia sẻ cách để lòng mình bình yên hơn nhé! 👇"},{"stt":13,"category":"Phúc học cách sống","title":"Đừng vì nghèo mà tự ti, đừng vì giàu mà kiêu ngạo","status":"Đã đăng","videoUrl":"https://drive.google.com/file/d/1F_ATK3YbmUEaadUyGeZLIFPNGyDpisu9/view?usp=drivesdk","youtubeTitle":"Đừng Vì Nghèo Tự Ti Đừng Vì Giàu Kiêu Ngạo #phuchocdieuhay","youtubeDesc":"Giá trị đích thực của một con người nằm ở sự hiểu biết, nhân cách và lòng trắc ẩn, chứ không nằm ở chiếc xe hay bộ quần áo đắt tiền.\n\n#phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","tiktok":"Giá trị của con nằm ở nhân cách và tri thức, nghèo không tự ti, giàu chẳng kiêu ngạo con nhé! #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","facebook":"Dạy con đức tính khiêm nhường: Dù ở hoàn cảnh nào cũng giữ trọn phẩm giá và lòng tự trọng. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","zalo":"Lời cha dặn con: Sống ở đời ngẩng cao đầu bằng tri thức và cúi đầu trước người lương thiện. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","instagram":"Nhân cách tạo nên giá trị con người ✨ Bài học sâu sắc cha mẹ gửi gắm con yêu. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","pinnedComment":"Khiêm tốn và tự trọng là hai đức tính quý báu nhất của người trưởng thành. Bố mẹ cùng chia sẻ nhé! ❤️"},{"stt":14,"category":"Phúc học cách sống","title":"Im lặng và nỗ lực là câu trả lời đắt giá nhất khi bị coi thường","status":"Đã đăng","videoUrl":"https://drive.google.com/file/d/1MsObH5yv0vUQK37Q0oKj4UpcoqzWvQg6/view?usp=drivesdk","youtubeTitle":"Im Lặng Và Nỗ Lực Câu Trả Lời Đắt Giá Nhất Khi Bị Coi Thường #phuchocdieuhay","youtubeDesc":"Trước những lời phán xét hay coi thường, tranh cãi chỉ làm con tiêu hao năng lượng. Hãy dùng sự kiên trì và thành quả của con để chứng minh tất cả.\n\n#phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","tiktok":"Không tranh cãi với người coi thường mình, im lặng nỗ lực là câu trả lời bản lĩnh nhất! #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","facebook":"Dạy con bản lĩnh vượt qua miệng lưỡi thế gian: Biến áp lực thành động lực để vươn lên. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","zalo":"Lời mẹ dặn con: Thay vì tức giận, hãy âm thầm cố gắng để ngày mai con rực rỡ hơn. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","instagram":"Bản lĩnh của con người nằm ở sự kiên định ✨ Cố gắng mỗi ngày vì tương lai của con. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","pinnedComment":"Bố mẹ đã dạy con cách đối diện với sự chê bai như thế nào? Cùng để lại bình luận nhé! ❤️"},{"stt":15,"category":"Phúc học cách sống","title":"Học cách kiềm chế cơn nóng giận trong lời ăn tiếng nói","status":"Đã làm video","videoUrl":"https://drive.google.com/file/d/14mrA_z14XwmxH_1LClNYYDW74REqIavN/view?usp=drivesdk","youtubeTitle":"Học Cách Kiềm Chế Cơn Nóng Giận Lời Nói Buông Ra Không Lấy Lại Được #phuchocdieuhay","youtubeDesc":"Lời nói lúc nóng giận như nhát dao cứa vào lòng người khác, dù có xin lỗi thì vết sẹo vẫn còn. Người bản lĩnh là người làm chủ được cảm xúc của chính mình.\n\n#phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","tiktok":"Kiềm chế cơn giận là đỉnh cao của sự trưởng thành! Đừng buông lời làm đau lòng người thân con nhé. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","facebook":"Dạy con làm chủ cảm xúc: Lúc giận hãy im lặng, lúc bình tĩnh hãy tìm cách sẻ chia. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","zalo":"Con à, nói một lời tổn thương chỉ mất một giây, nhưng hàn gắn có khi mất cả đời. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","instagram":"Làm chủ cảm xúc để sống an yên và được mọi người tôn trọng ✨ Lời dặn dò từ mẹ. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","pinnedComment":"Kiềm chế cơn nóng giận là bài học khó nhất đời người. Bố mẹ rèn luyện cùng con ra sao? ❤️"},{"stt":16,"category":"Phúc học cách sống","title":"HỌC CÁCH THA THỨ — ĐỜI CON THANH THẢN","status":"Đã làm video","videoUrl":"https://drive.google.com/file/d/13XLt3KdShEy3r8EFFQ8gwq0_ELCN8FoG/view?usp=drivesdk","youtubeTitle":"HỌC CÁCH THA THỨ, ĐỜI CON THANH THẢN - Bài học bản lĩnh cho con | Phúc Học Điều Hay","youtubeDesc":"Tha thứ không phải là bao che cho cái sai, mà là cách con chọn để bản thân được bình yên và tự do. Hãy cùng lắng nghe tâm tình của cha mẹ về bài học bao dung để giữ cho tâm hồn luôn nhẹ nhàng trước những sóng gió cuộc đời. \n#phuchocdieuhay #nuoidaycon #baihoccuocsong #thathu #giadinh","tiktok":"Tha thứ là bản lĩnh, không phải yếu đuối. Nghe xong lòng bỗng nhẹ tênh... 🌿 #phuchocdieuhay #baihoccuocsong #giadinh #nuoidaycon #thathu","facebook":"“Giữ mãi sự tức giận giống như con tự cầm hòn than nóng rồi chờ người khác bị bỏng vậy.” Gửi con yêu bài học về lòng bao dung để đời con luôn thanh thản và hạnh phúc. ❤️ #phuchocdieuhay #tamlinh #nuoidaycon #giadinhviet","zalo":"Lời mẹ dặn con: Đừng ôm giữ những hờn giận trong lòng, hãy để trái tim con luôn nhẹ nhõm. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","instagram":"Bao dung là thước đo của một tâm hồn đẹp ✨ Lời nhắn nhủ ấm áp cha mẹ gửi con. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","pinnedComment":"Con đã bao giờ cảm thấy nhẹ lòng hơn sau khi quyết định bỏ qua lỗi lầm cho một người bạn chưa? Hãy chia sẻ cảm xúc của con cùng cha mẹ nhé! 👇"},{"stt":22,"category":"Phúc học về bản thân","title":"CHƯA THỬ ĐÃ SỢ — THẤT BẠI LỚN NHẤT","status":"Đã làm video","videoUrl":"https://drive.google.com/file/d/1xe-XFBAL7G4YT86fw3b1W6CU4P4WaAvw/view?usp=drivesdk","youtubeTitle":"Chưa thử đã sợ, thất bại lớn nhất - Bài học về lòng dũng cảm | Phúc Học Điều Hay","youtubeDesc":"Con à, chưa thử đã sợ chính là thất bại lớn nhất. Đừng để nỗi sợ ngăn cản bước chân con trước những cơ hội quý giá của cuộc đời. Hãy cùng lắng nghe những lời tâm tình từ cha mẹ để thêm bản lĩnh dấn thân con nhé. #phuchocdieuhay #giaoducgiadinh #baihoccuocsong","tiktok":"Chưa thử đã sợ, thất bại lớn nhất. Lời nhắn nhủ dành cho con lứa tuổi trưởng thành. 🕊️ #phuchocdieuhay #nuoidaycon #dongluc #tamly","facebook":"Thà thử sức rồi vấp ngã còn hơn cả đời nuối tiếc vì không dám bắt đầu. Gửi con, người đang tập tễnh bước vào đời với bao hoài bão. Đừng sợ hãi, con nhé!\n\n#phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","zalo":"Con à, người thành công là người ngã bảy lần nhưng vẫn kiên quyết đứng dậy tám lần. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #kynangsong","instagram":"Nghị lực đứng dậy sau vấp ngã quý hơn vạn lời tán dương ✨ Lời mẹ tiếp thêm sức mạnh cho con. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #kynangsong","pinnedComment":"Con đã bao giờ lỡ mất một cơ hội chỉ vì nỗi sợ 'mình không làm được' chưa? Chia sẻ cùng cha mẹ ở dưới nhé!"},{"stt":23,"category":"Phúc học về bản thân","title":"KỶ LUẬT TỰ THÂN — TỰ DO THỰC SỰ","status":"Đã làm video","videoUrl":"https://drive.google.com/file/d/1NmeWUBswpCk7cgtp3ntaotmoMzMdPrjS/view","youtubeTitle":"Kỷ Luật Tự Thân, Tự Do Thực Sự: Bài Học Bản Lĩnh Để Con Làm Chủ Cuộc Đời #phuchocdieuhay","youtubeDesc":"Kỷ luật không phải là sự gò bó, mà là công cụ để con làm chủ cuộc đời. Khi con chiến thắng được sự lười biếng của chính mình, con mới thực sự chạm tay vào tự do. Hãy cùng lắng nghe lời nhắn nhủ chân thành từ cha mẹ về giá trị của sự tự chủ trên hành trình trưởng thành của mỗi đứa trẻ. #phuchocdieuhay #kyluattuthan #nuoicon #tamlytuoidaythi","tiktok":"Kỷ luật hay là nô lệ cho thói quen? Lựa chọn nằm ở chính con. 🕊️ #phuchocdieuhay #kyluattuthan #baihoccuocsong #nuoiconkhonlon #phattrienbanthan","facebook":"Gửi con yêu, kỷ luật tự thân chính là chiếc chìa khóa duy nhất mở ra cánh cửa tự do thực sự. Đừng để sự lười biếng đánh cắp đi những cơ hội tỏa sáng của con sau này. Lắng nghe để hiểu vì sao cha mẹ luôn mong con rèn luyện tính tự giác mỗi ngày.\n\n#phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","zalo":"Con à, người chiến thắng bản thân mình mới là người mạnh mẽ và bản lĩnh nhất thế gian. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #kynangsong","instagram":"Kỷ luật rèn giũa ý chí sắt đá cho con bước vào đời ✨ Lời cha dặn dò con yêu. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #kynangsong","pinnedComment":"Nếu được chọn một thói quen kỷ luật để bắt đầu ngay hôm nay, con sẽ chọn điều gì? Chia sẻ cùng cha mẹ ở dưới nhé!"},{"stt":24,"category":"Phúc học về bản thân","title":"ĐỪNG SO SÁNH VỚI AI — TỐT HƠN MÌNH HÔM QUA","status":"Đã làm video","videoUrl":"https://drive.google.com/file/d/19zgTuXNPI2rWXtb04ifXuovKKkp6mn_W/view?usp=drivesdk","youtubeTitle":"Đừng so sánh với ai, tốt hơn mình hôm qua - Bài học sâu sắc cho con #phuchocdieuhay","youtubeDesc":"Mỗi đứa trẻ là một bông hoa với thời điểm nở rộ khác nhau. Thay vì so sánh con với 'con nhà người ta', hãy khích lệ con vượt qua chính mình mỗi ngày. Video này là lời tâm tình giúp con vững tin vào giá trị bản thân.","tiktok":"Đừng nhìn vào hào quang của người khác mà quên đi ánh sáng của chính mình. 🌟 #phuchocdieuhay #nuoicon #baihoccuocsong #phattrienbanthan","facebook":"Gửi con yêu của cha mẹ: Cuộc đời này không phải là một đường đua với người khác, mà là hành trình vượt qua giới hạn của chính mình. Mỗi nỗ lực nhỏ của con hôm nay đều là một viên gạch xây nên thành công mai sau.\n\n#phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","zalo":"Con à, hoa nở mùa xuân hay nở mùa đông đều có nét đẹp riêng, con cũng vậy. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #kynangsong","instagram":"Tự tin bước đi trên con đường của chính mình ✨ Lời nhắn nhủ ấm áp cha mẹ gửi con. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #kynangsong","pinnedComment":"Bạn thường làm gì khi thấy con mình đang tự ti vì thua kém bạn bè? Hãy chia sẻ kinh nghiệm cùng cộng đồng Phúc Học Điều Hay nhé!"},{"stt":25,"category":"Phúc học về bản thân","title":"BƯỚC KHỎI VÙNG AN TOÀN — KHÁM PHÁ BẢN LĨNH","status":"Đã làm video","videoUrl":"https://drive.google.com/file/d/1UiehdaZNVOnIgivp0LKQLeKc2TRlaJ9-/view?usp=drivesdk","youtubeTitle":"BƯỚC KHỎI VÙNG AN TOÀN, KHÁM PHÁ BẢN LĨNH - Bài học trưởng thành cho con #phuchocdieuhay","youtubeDesc":"Con người chỉ thực sự trưởng thành khi dám bước chân ra khỏi ranh giới quen thuộc để đối mặt với thử thách. Video này là lời tâm tình giúp con rèn luyện bản lĩnh, sự tự tin và khát khao khám phá thế giới rộng lớn ngoài kia. Hãy cùng Phúc Học Điều Hay nuôi dưỡng những tâm hồn kiên cường. #phuchocdieuhay #giaoducgiadinh #baihoccuocsong #phattrienbanthan","tiktok":"Con có dám bước chân ra khỏi chiếc kén ấm áp để nhìn thấy bầu trời rộng lớn không? ✨ #phuchocdieuhay #nuoidaycon #dongluc #phattrienbanthan #learnontiktok","facebook":"Gửi con yêu của cha mẹ: Đừng sợ những điều lạ lẫm, vì đó chính là nơi bản lĩnh của con được rèn giũa rực rỡ nhất. Bước ra ngoài để thấy mình mạnh mẽ hơn con nhé! ❤️ #phuchocdieuhay #tamlytuoiteen #giadinh #nuoidaycon","zalo":"Con à, cánh chim muốn bay cao thì phải dám rời khỏi chiếc tổ êm ấm. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #kynangsong","instagram":"Can đảm khám phá thế giới là hành trang quý giá của tuổi trẻ ✨ Lời cha mẹ gửi con. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #kynangsong","pinnedComment":"Lần gần nhất con dám thử một điều mới mẻ mà trước đây con từng rất sợ hãi là khi nào? Hãy chia sẻ câu chuyện của con để cha mẹ cùng tiếp thêm động lực nhé! 👇"},{"stt":26,"category":"Phúc học về bản thân","title":"NGHỊCH CẢNH CUỘC ĐỜI — TÔ LUYỆN BẢN LĨNH","status":"Đã làm video","videoUrl":"https://drive.google.com/file/d/17cIW3LQ72bgHYpbolJBuF_erQQZ_UJF5/view?usp=drivesdk","youtubeTitle":"Nghịch Cảnh Cuộc Đời, Tô Luyện Bản Lĩnh: Lời Cha Dặn Con Về Sự Kiên Cường | Phúc Học Điều Hay","youtubeDesc":"Trong hành trình trưởng thành, khó khăn không phải để quật ngã chúng ta, mà để giúp ta mạnh mẽ hơn. Video này là những lời tâm tình sâu sắc dành cho các con đang đối mặt với áp lực đầu đời. Hãy nhớ: Nghịch cảnh chính là lò luyện bản lĩnh tốt nhất. #phuchocdieuhay #giaoducgiadinh #nuoidaycon","tiktok":"Nghịch cảnh không đáng sợ, đáng sợ là khi ta thiếu bản lĩnh đối mặt. 🌿 #phuchocdieuhay #tamlytuoiteen #loichadan #donglucmoingay","facebook":"Gửi con yêu, những khi con thấy mệt mỏi vì áp lực ngoài kia, hãy nhớ rằng sóng gió chính là lúc để con rèn luyện đôi tay chèo. Bản lĩnh không sinh ra từ sự bình yên, mà từ chính những lần con dám đứng dậy sau vấp ngã. Thương và tin con rất nhiều! #PhucHocDieuHay #GiaDinh #BaiHocCuocDoi\n\n#phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","zalo":"Con à, viên ngọc có qua mài giũa mới sáng, con người có qua thử thách mới vững vàng. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #kynangsong","instagram":"Ý chí kiên cường là sức mạnh nội tại lớn nhất của con ✨ Lời cha tiếp sức con yêu. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #kynangsong","pinnedComment":"Có bao giờ con cảm thấy muốn bỏ cuộc trước một khó khăn nào đó chưa? Đừng sợ, hãy hít một hơi thật sâu và đối mặt với nó, con sẽ thấy mình mạnh mẽ hơn rất nhiều. Chia sẻ cùng cha mẹ nhé!"},{"stt":27,"category":"Phúc học về bản thân","title":"ĐIỀU KHÔNG NHƯ Ý — ĐỐI DIỆN BẰNG LẠC QUAN","status":"Đã làm video","videoUrl":"https://drive.google.com/file/d/16b-Pppl1FPt9Dz5y0NX4qkyILB0SZ1mR/view?usp=drivesdk","youtubeTitle":"ĐIỀU KHÔNG NHƯ Ý, ĐỐI DIỆN BẰNG LẠC QUAN - Bài học bản lĩnh cho con #phuchocdieuhay","youtubeDesc":"Cuộc sống không phải lúc nào cũng bằng phẳng. Đoạn video ngắn này là lời tâm tình của cha mẹ gửi đến con về cách giữ vững tâm thế lạc quan trước những biến cố và thử thách trên hành trình trưởng thành. Hãy cùng lắng nghe để thấy cuộc đời vẫn luôn dịu dàng theo cách riêng của nó.","tiktok":"Khi mọi thứ không như ý, hãy chọn cách mỉm cười. Đó chính là bản lĩnh! 🌿 #phuchocdieuhay #nuoicon #giadinh #baihoccuocsong #lacquan","facebook":"Gửi con yêu, nếu hôm nay có điều gì làm con buồn, hãy nhớ rằng mây đen rồi sẽ tan. Cách con đối diện với nghịch cảnh sẽ quyết định tầm vóc của con sau này. Thương và tin con rất nhiều!\n\n#phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","zalo":"Con à, trời mưa rồi trời lại tạnh, giông bão qua đi ánh nắng sẽ lại rạng ngời. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #kynangsong","instagram":"Tâm thái lạc quan là món quà vô giá nuôi dưỡng hạnh phúc ✨ Lời mẹ dặn con yêu. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #kynangsong","pinnedComment":"Nếu gặp một chuyện không vui, bạn sẽ chọn cách dằn vặt bản thân hay tìm một bài học từ đó? Hãy chia sẻ cùng Phúc Học Điều Hay nhé!"},{"stt":28,"category":"Phúc học về tiền","title":"TIỀN TỪ MỒ HÔI — TIÊU BẰNG DANH DỰ","status":"Đã làm video","videoUrl":"https://drive.google.com/file/d/17hrlKFOPW-bk4npXqtParLIC4TCyGFFy/view?usp=drivesdk","youtubeTitle":"Tiền Từ Mồ Hôi, Tiêu Bằng Danh Dự - Bài Học Đắt Giá Cho Con | Phúc Học Điều Hay","youtubeDesc":"Đồng tiền kiếm được bằng mồ hôi là đồng tiền sạch, tiêu đồng tiền đó bằng danh dự là sự cao quý. Cha mẹ mong con hiểu rằng nhân cách mới là tài sản lớn nhất của đời người. #phuchocdieuhay #daycon #baihoccuocsong #giadinh","tiktok":"Cách con tiêu tiền nói lên con người con. Đừng đánh đổi danh dự lấy vật chất, con nhé! ✨ #phuchocdieuhay #nuoidaycon #trietlycuocsong #baihocquy","facebook":"Có những thứ vàng bạc không bao giờ mua được, đó chính là sự thanh thản trong tâm hồn và lòng tự trọng của một con người ngẩng cao đầu mà sống...\n\n#phuchocdieuhay #baihoccuocsong #daycon #giadinh #songtute","zalo":"Con à, bát cơm kiếm bằng giọt mồ hôi sạch sẽ nuốt vào thấy ngọt lành vô cùng. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #dayconlamgiau","instagram":"Lòng tự trọng quý hơn vạn núi vàng bạc bẽo ✨ Bài học về tiền bạc cha mẹ gửi con. #phuchocdieuhay #baihoccuocsong #daycon #giadinh #dayconlamgiau","pinnedComment":"Theo bạn, giá trị của một người nằm ở số tiền họ sở hữu hay cách họ tiêu tiền? Hãy cùng chia sẻ góc nhìn của bạn nhé!"}];
     var IMAGE_ITEMS = [{"stt":1,"category":"Cẩm Nang 10 Loài Động Vật  Thực Phẩm Sạch","title":"Bí Kíp Phân Biệt Các Loại Thịt Heo","score":9.5,"status":"Đã tạo ảnh","imageUrl":"https://drive.google.com/file/d/1B2cZPCdLZ1cf538HKCSlkkQV9xPFAdJd/view?usp=drivesdk","prompt":"Educational infographic about pork cuts. HEADER: Top-left, bold title 'Bí Kíp Phân Biệt Các Loại Thịt Heo' in Vietnamese. Top-right corner, neat channel logo badge 'Phúc Học Điều Hay' with family emblem. CONTENT: Upper half shows a clean side-view pig anatomy with dashed lines and pure Vietnamese labels. Lower half displays a grid of various raw pork meat cuts (samples) with clear Vietnamese text labels. STYLE: 2D clean flat design, white background. FAMILY MASCOT: In the bottom corner, draw ONLY 3 tiny characters (Father, Mother with short hair, little boy Phuc with backwards cap) standing tightly together side-by-side as a compact trio (<7% size). ABSOLUTELY NO speech bubbles, NO dialogue text balloons, NO talk boxes, NO 3D CGI, NO English text, NO third-party watermarks, NO 'Jos Mạnh' text. 18px clean bottom margin.","fbHook":"Đi chợ không còn là 'bài toán khó' với cẩm nang phân biệt các loại thịt heo cực chuẩn này. Lưu lại dạy bé ngay ba mẹ ơi! #phuchocdieuhay","facebook":"Mẹ ơi, thịt nạc dăm khác gì thịt thăn? Tại sao sườn non lại đắt hơn sườn già?\n\nĐã bao giờ ba mẹ lúng túng khi đứng trước quầy thịt heo hay khi bị bé con 'vặn vẹo' chưa? Việc phân biệt đúng các phần thịt không chỉ giúp món ăn ngon đúng điệu mà còn là cách chúng ta tiết kiệm chi tiêu thông minh.\n\nHôm nay, kênh 'Phúc Học Điều Hay' mang đến bộ bí kíp 'giải phẫu' con heo siêu chi tiết:\n✅ Biết rõ phần nào làm món kho, món xào, món canh ngon nhất.\n✅ Hình ảnh thực tế dễ đối chiếu khi đi chợ.\n✅ Bài học kỹ năng sống tuyệt vời để dạy con về nguồn gốc thực phẩm.\n\nBa mẹ lưu ngay bức ảnh này về máy hoặc in ra để cùng bé 'học đi chợ' nhé! Đừng quên nhấn theo dõi kênh để nhận thêm nhiều điều hay mỗi ngày.\n\n#phuchocdieuhay #daycon #kynangsong #meodicho #kienthucgiadinh #nuoidaycon","zalo":"","tiktok":"","pinnedComment":""}];
     var WEB_APP_URL = "https://script.google.com/macros/s/AKfycbykMhqPwofTB5yo1exc5M1yJK9InkM1N8e-y_ksUqrsZ2PTSN-k0fSS2FrB691UQczvBQ/exec";
+
     var currentTab = "video";
     var currentIndex = 0;
-    var currentFilter = "all";
+    var currentFilter = "pending"; // MẶC ĐỊNH LUÔN LÀ CHƯA ĐĂNG THEO YÊU CẦU
     var doneStorage = JSON.parse(localStorage.getItem("phuc_done_items") || "{}");
-
-    document.getElementById("vCount").innerText = VIDEO_ITEMS.length;
-    document.getElementById("iCount").innerText = IMAGE_ITEMS.length;
-
-    function switchTab(t) {
-      currentTab = t;
-      document.getElementById("tabVideoBtn").classList.toggle("active", t === "video");
-      document.getElementById("tabImageBtn").classList.toggle("active", t === "image");
-      currentIndex = 0;
-      loadCurrentItem();
-      renderTable();
-      updateStats();
-    }
 
     function getItems() {
       return currentTab === "video" ? VIDEO_ITEMS : IMAGE_ITEMS;
@@ -201,120 +285,190 @@
       return String(item.status || "").toLowerCase().indexOf("đã đăng") !== -1;
     }
 
+    function extractDriveId(url) {
+      if (!url) return "";
+      var s = String(url).trim();
+      var m = s.match(/\/d\/([a-zA-Z0-9_-]{25,})/);
+      if (m && m[1]) return m[1];
+      var m2 = s.match(/id=([a-zA-Z0-9_-]{25,})/);
+      if (m2 && m2[1]) return m2[1];
+      if (/^[a-zA-Z0-9_-]{25,}$/.test(s)) return s;
+      return "";
+    }
+
+    function switchTab(t) {
+      currentTab = t;
+      document.getElementById("tabVideoBtn").classList.toggle("active", t === "video");
+      document.getElementById("tabImageBtn").classList.toggle("active", t === "image");
+
+      // Cập nhật nhãn nút Hàng 4 phù hợp với Tab
+      if (t === "video") {
+        document.getElementById("lblRow4Col1").innerText = "▶️ Caption YouTube";
+        document.getElementById("lblRow4Col2").innerText = "📄 Mô Tả YouTube";
+        document.getElementById("lblDownloadDrive").innerText = "📥 Tải Video";
+        document.getElementById("previewTypeLabel").innerText = "Khung Xem Video Drive:";
+      } else {
+        document.getElementById("lblRow4Col1").innerText = "📸 Caption Insta";
+        document.getElementById("lblRow4Col2").innerText = "🎨 Prompt AI";
+        document.getElementById("lblDownloadDrive").innerText = "📥 Tải Ảnh";
+        document.getElementById("previewTypeLabel").innerText = "Khung Xem Ảnh Gốc:";
+      }
+
+      // Luôn đưa về bài chưa đăng đầu tiên của tab đó
+      findAndSetFirstPendingIndex();
+      loadCurrentItem();
+      renderTable();
+      updateStats();
+    }
+
+    function findAndSetFirstPendingIndex() {
+      var items = getItems();
+      for (var i = 0; i < items.length; i++) {
+        if (!isDone(items[i])) {
+          currentIndex = i;
+          return;
+        }
+      }
+      currentIndex = 0;
+    }
+
     function loadCurrentItem() {
       var items = getItems();
       if (!items || items.length === 0) {
-        document.getElementById("currTitle").innerText = "Chưa có dữ liệu";
         document.getElementById("currStt").innerText = "#0";
-        document.getElementById("currStatus").className = "badge-status pending";
-        document.getElementById("currStatus").innerText = "Chưa có";
-        document.getElementById("mediaBox").innerHTML = "<div style='padding:24px 10px;text-align:center;color:#94a3b8;'>Chưa có dữ liệu</div>";
-        document.getElementById("copyGrid").innerHTML = "";
+        document.getElementById("currCategory").innerText = "Chưa có dữ liệu";
+        document.getElementById("currTitle").innerText = "Chưa có bài viết nào trong tab này";
+        document.getElementById("previewMediaBox").innerHTML = "<div class='preview-placeholder'><span class='icon'>📁</span><span>Không có dữ liệu</span></div>";
         return;
       }
+
       if (currentIndex < 0) currentIndex = 0;
       if (currentIndex >= items.length) currentIndex = items.length - 1;
 
       var it = items[currentIndex];
       document.getElementById("currStt").innerText = "#" + it.stt;
-      
-      var scoreEl = document.getElementById("currScore");
-      if (currentTab === "image" && it.score) {
-        scoreEl.innerText = "⭐ " + it.score;
-        scoreEl.style.display = "inline-block";
-      } else {
-        scoreEl.style.display = "none";
-      }
-
+      document.getElementById("currCategory").innerText = it.category || "Phúc Học Điều Hay";
       document.getElementById("currTitle").innerText = it.title;
+
+      // Cập nhật Nút Đánh Dấu Đã Đăng (Hàng 5)
       var d = isDone(it);
-      var stEl = document.getElementById("currStatus");
-      stEl.className = "badge-status " + (d ? "done" : "pending");
-      stEl.innerText = d ? "Đã đăng" : "Chưa đăng";
+      var btnMark = document.getElementById("btnMarkPosted");
+      var lblMark = document.getElementById("lblMarkPosted");
 
-      var btnDone = document.getElementById("btnDoneToggle");
-      btnDone.className = "btn btn-done-toggle " + (d ? "is-done" : "");
-      btnDone.innerHTML = d ? "✅ ĐÃ ĐĂNG BÀI RỒI" : "⚪ Đánh Dấu: Đã Đăng";
-
-      var mBox = document.getElementById("mediaBox");
-      if (currentTab === "video") {
-        mBox.innerHTML = '<div style="padding:24px 10px;text-align:center;color:#94a3b8;"><span style="font-size:36px;">🎬</span><br><b style="color:#fff;">Video: ' + (it.videoUrl ? "Sẵn sàng" : "Chưa có link Drive") + '</b><br><small style="color:#64748b;">Bấm "Mở Drive" bên dưới để tải hoặc xem MP4</small></div>';
+      if (d) {
+        btnMark.className = "btn-mark-posted state-done";
+        lblMark.innerText = "✅ ĐÃ ĐĂNG BÀI (Chạm để hoàn tác)";
       } else {
-        var imgPreview = it.imageUrl || ("Image/A (" + it.stt + ").jpg");
-        var imgEl = document.createElement("img");
-        imgEl.src = imgPreview;
-        imgEl.title = "Bấm để phóng to";
-        imgEl.onclick = function() { openLightbox(this.src); };
-        imgEl.onerror = function() { this.src = "Avatar.png"; };
-        mBox.innerHTML = "";
-        mBox.appendChild(imgEl);
+        btnMark.className = "btn-mark-posted state-pending";
+        lblMark.innerText = "🔴 ĐÁNH DẤU: ĐÃ ĐĂNG BÀI";
       }
 
-      renderCopyButtons(it);
+      // TỰ ĐỘNG NẠP VÀO KHUNG XEM TRỰC TIẾP
+      renderPreviewMedia(it);
     }
 
-    function openLightbox(src) {
-      document.getElementById("lightboxImg").src = src;
-      document.getElementById("lightbox").style.display = "flex";
-    }
-
-    function copyItemField(fieldKey, label) {
-      var it = getItems()[currentIndex];
-      if (!it) return;
-      copyText(it[fieldKey], label);
-    }
-
-    function renderCopyButtons(it) {
-      var g = document.getElementById("copyGrid");
-      if (!g) return;
-      g.innerHTML = "";
-      var btnConfigs = [];
+    function renderPreviewMedia(it) {
+      var box = document.getElementById("previewMediaBox");
+      box.innerHTML = "";
 
       if (currentTab === "video") {
-        btnConfigs = [
-          { key: "youtubeTitle", label: "📋 Tiêu Đề YT", title: "Tiêu đề YouTube", cls: "btn-copy" },
-          { key: "tiktok", label: "📋 TikTok", title: "Caption TikTok", cls: "btn-copy" },
-          { key: "facebook", label: "📋 Caption FB (Kèm Hashtag)", title: "Caption FB (Kèm Hashtag)", cls: "btn-copy btn-fb" },
-          { key: "zalo", label: "📋 Caption Zalo", title: "Caption Zalo", cls: "btn-copy" },
-          { key: "youtubeDesc", label: "📋 Mô Tả YouTube", title: "Mô tả YouTube", cls: "btn-copy" },
-          { key: "pinnedComment", label: "📌 Bình Luận Ghim", title: "Bình luận ghim", cls: "btn-copy btn-pinned" }
-        ];
-      } else {
-        btnConfigs = [
-          { key: "title", label: "📋 Tiêu Đề Bài", title: "Tiêu đề bài viết", cls: "btn-copy" },
-          { key: "facebook", label: "📋 BÀI VIẾT FACEBOOK (Kèm Hashtag)", title: "Bài Viết Facebook (Kèm Hashtag)", cls: "btn-copy btn-fb" },
-          { key: "zalo", label: "📋 Caption Zalo", title: "Caption Zalo (Kèm Hashtag)", cls: "btn-copy" },
-          { key: "tiktok", label: "📋 TikTok / Insta", title: "Caption TikTok / Insta", cls: "btn-copy" },
-          { key: "pinnedComment", label: "📌 Bình Luận Ghim Thảo Luận", title: "Bình luận ghim thảo luận", cls: "btn-copy btn-pinned" },
-          { key: "prompt", label: "🎨 Sao Chép Prompt AI", title: "Prompt AI Tạo Ảnh", cls: "btn-copy", isPrompt: true }
-        ];
-      }
+        var vidUrl = it.videoUrl || it.zipUrl || "";
+        var fileId = extractDriveId(vidUrl);
 
-      btnConfigs.forEach(function(cfg) {
-        var btn = document.createElement("button");
-        btn.className = cfg.cls;
-        btn.innerText = cfg.label;
-        if (cfg.isPrompt) {
-          btn.style.gridColumn = "span 2";
-          btn.style.background = "rgba(6, 182, 212, 0.15)";
-          btn.style.color = "#22d3ee";
-          btn.style.borderColor = "rgba(6, 182, 212, 0.35)";
+        if (fileId) {
+          var previewSrc = "https://drive.google.com/file/d/" + fileId + "/preview";
+          var iframe = document.createElement("iframe");
+          iframe.src = previewSrc;
+          iframe.allow = "autoplay; fullscreen";
+          iframe.setAttribute("allowfullscreen", "true");
+          box.appendChild(iframe);
+        } else {
+          box.innerHTML = "<div class='preview-placeholder'><span class='icon'>🎬</span><b>Chưa có link video Drive</b><span class='hint'>Hãy cập nhật cột 'Link Video Drive' trong sheet</span></div>";
         }
-        btn.onclick = function() {
-          copyItemField(cfg.key, cfg.title);
+      } else {
+        // TAB ẢNH - TUYỆT ĐỐI KHÔNG DÙNG AVATAR
+        var imgUrl = it.imageUrl || ("Image/A (" + it.stt + ").jpg");
+        var imgId = extractDriveId(imgUrl);
+        var directImgSrc = imgId ? ("https://lh3.googleusercontent.com/d/" + imgId) : imgUrl;
+
+        var img = document.createElement("img");
+        img.src = directImgSrc;
+        img.title = "Nhấp để phóng to toàn màn hình";
+        img.onclick = function() { openLightbox(this.src); };
+        img.onerror = function() {
+          if (imgId && this.src.indexOf("googleusercontent") !== -1) {
+            this.src = "https://drive.google.com/thumbnail?id=" + imgId + "&sz=w1000";
+          } else {
+            box.innerHTML = "<div class='preview-placeholder'><span class='icon'>📸</span><b>Không thể tải trước ảnh</b><span class='hint'>Bấm 'Tải Drive' để tải ảnh gốc</span></div>";
+          }
         };
-        g.appendChild(btn);
-      });
+        box.appendChild(img);
+      }
     }
 
-    function openDriveLink() {
+    function triggerViewInFrame() {
       var it = getItems()[currentIndex];
       if (!it) return;
-      var link = (currentTab === "video") ? (it.videoUrl || it.zipUrl) : (it.imageUrl || ("Image/A (" + it.stt + ").jpg"));
-      if (link && link.indexOf("http") === 0) {
-        window.open(link, "_blank");
+      renderPreviewMedia(it);
+      showToast("👁️ Đang mở trình phát trong khung xem!");
+    }
+
+    function triggerDownloadDrive() {
+      var it = getItems()[currentIndex];
+      if (!it) return;
+      var rawUrl = (currentTab === "video") ? (it.videoUrl || it.zipUrl) : it.imageUrl;
+      var fileId = extractDriveId(rawUrl);
+
+      if (fileId) {
+        var dlUrl = "https://drive.google.com/uc?export=download&id=" + fileId;
+        window.open(dlUrl, "_blank");
+        showToast("📥 Đang tải file từ Google Drive...");
+      } else if (rawUrl && rawUrl.indexOf("http") === 0) {
+        window.open(rawUrl, "_blank");
       } else {
-        showToast("⚠️ Link nội bộ hoặc chưa có URL Google Drive: " + link);
+        showToast("⚠️ Chưa có URL Google Drive cho bài này!");
+      }
+    }
+
+    function openDriveExternalTab() {
+      var it = getItems()[currentIndex];
+      if (!it) return;
+      var rawUrl = (currentTab === "video") ? (it.videoUrl || it.zipUrl) : it.imageUrl;
+      if (rawUrl && rawUrl.indexOf("http") === 0) {
+        window.open(rawUrl, "_blank");
+      } else {
+        showToast("⚠️ Chưa có đường link Google Drive!");
+      }
+    }
+
+    function copyCurrentField(key, label) {
+      var it = getItems()[currentIndex];
+      if (!it) return;
+      var txt = it[key] || "";
+      if (!txt) {
+        showToast("⚠️ Chưa có nội dung " + label);
+        return;
+      }
+      copyText(txt, label);
+    }
+
+    function copyRow4Col1() {
+      var it = getItems()[currentIndex];
+      if (!it) return;
+      if (currentTab === "video") {
+        copyCurrentField("youtubeTitle", "Tiêu Đề YouTube");
+      } else {
+        copyCurrentField("tiktok", "Caption Instagram");
+      }
+    }
+
+    function copyRow4Col2() {
+      var it = getItems()[currentIndex];
+      if (!it) return;
+      if (currentTab === "video") {
+        copyCurrentField("youtubeDesc", "Mô Tả YouTube");
+      } else {
+        copyCurrentField("prompt", "Prompt AI Tạo Ảnh");
       }
     }
 
@@ -329,62 +483,74 @@
       }
     }
 
+    function prevItem() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        loadCurrentItem();
+        renderTable();
+      } else {
+        showToast("Đang ở bài đầu tiên!");
+      }
+    }
+
     function toggleCurrentDone() {
       var it = getItems()[currentIndex];
       if (!it) return;
       var k = getItemKey(it);
       var currentDone = isDone(it);
       var newDone = !currentDone;
+
       doneStorage[k] = newDone;
       localStorage.setItem("phuc_done_items", JSON.stringify(doneStorage));
-
-      loadCurrentItem();
-      renderTable();
-      updateStats();
 
       // Đồng bộ 2 chiều về Google Sheet
       if (WEB_APP_URL && WEB_APP_URL.indexOf("http") === 0) {
         var syncUrl = WEB_APP_URL + "?action=markPosted&type=" + currentTab + "&stt=" + it.stt + "&title=" + encodeURIComponent(it.title) + "&isDone=" + newDone;
         fetch(syncUrl, { mode: "no-cors" }).catch(function(){});
       }
-      showToast(newDone ? "✅ Đã đánh dấu: ĐÃ ĐĂNG" : "⚪ Đã chuyển: CHƯA ĐĂNG");
-    }
 
-    function copyText(txt, label) {
-      if (!txt) {
-        showToast("⚠️ Chưa có nội dung " + label);
-        return;
+      if (newDone) {
+        showToast("✅ Đã chuyển sang: ĐÃ ĐĂNG BÀI");
+        // Khi ở bộ lọc "Chưa đăng", tự động chuyển sang bài chưa đăng tiếp theo
+        if (currentFilter === "pending") {
+          findAndSetFirstPendingIndex();
+        }
+      } else {
+        showToast("⚪ Đã chuyển lại: CHƯA ĐĂNG");
       }
-      navigator.clipboard.writeText(txt).then(function() {
-        showToast("✓ Đã chép: " + label);
-      }).catch(function() {
-        var t = document.createElement("textarea");
-        t.value = txt;
-        document.body.appendChild(t);
-        t.select();
-        document.execCommand("copy");
-        document.body.removeChild(t);
-        showToast("✓ Đã chép: " + label);
-      });
+
+      loadCurrentItem();
+      renderTable();
+      updateStats();
     }
 
-    function showToast(m) {
-      var t = document.getElementById("toastMsg");
-      t.innerText = m;
-      t.style.display = "block";
-      clearTimeout(window.__toastT);
-      window.__toastT = setTimeout(function(){ t.style.display = "none"; }, 1800);
-    }
-
-    function setFilter(f, btn) {
+    function setFilter(f) {
       currentFilter = f;
-      document.querySelectorAll(".filter-chip").forEach(function(c){ c.classList.remove("active"); });
-      btn.classList.add("active");
+      document.querySelectorAll(".filter-chip").forEach(function(c) { c.classList.remove("active"); });
+      if (f === "pending") document.getElementById("chipPending").classList.add("active");
+      else if (f === "done") document.getElementById("chipDone").classList.add("active");
+      else document.getElementById("chipAll").classList.add("active");
+
+      // Nếu bài hiện tại không thuộc bộ lọc mới, nhảy về bài đầu tiên thỏa mãn
+      var items = getItems();
+      var validIndex = -1;
+      for (var i = 0; i < items.length; i++) {
+        var d = isDone(items[i]);
+        if (f === "all" || (f === "pending" && !d) || (f === "done" && d)) {
+          validIndex = i;
+          break;
+        }
+      }
+      if (validIndex !== -1) {
+        currentIndex = validIndex;
+        loadCurrentItem();
+      }
+
       renderTable();
     }
 
     function renderTable() {
-      var q = (document.getElementById("searchInput").value || "").toLowerCase();
+      var q = (document.getElementById("searchInput").value || "").toLowerCase().trim();
       var items = getItems();
       var tbody = document.getElementById("tableBody");
       tbody.innerHTML = "";
@@ -393,7 +559,10 @@
         var d = isDone(it);
         if (currentFilter === "pending" && d) return;
         if (currentFilter === "done" && !d) return;
-        if (q && it.title.toLowerCase().indexOf(q) === -1) return;
+
+        var sttMatch = ("#" + it.stt).toLowerCase().indexOf(q) !== -1;
+        var titleMatch = it.title.toLowerCase().indexOf(q) !== -1;
+        if (q && !sttMatch && !titleMatch) return;
 
         var tr = document.createElement("tr");
         if (idx === currentIndex) tr.className = "active";
@@ -401,12 +570,12 @@
           currentIndex = idx;
           loadCurrentItem();
           renderTable();
+          window.scrollTo({ top: 120, behavior: "smooth" });
         };
 
-        var scorePrefix = (currentTab === "image" && it.score) ? ("⭐" + it.score + " ") : "";
         tr.innerHTML = 
           '<td><b>#' + it.stt + '</b></td>' +
-          '<td>' + scorePrefix + it.title + '</td>' +
+          '<td>' + it.title + '</td>' +
           '<td><span class="badge-status ' + (d ? "done" : "pending") + '">' + (d ? "Đã đăng" : "Chưa") + '</span></td>';
         tbody.appendChild(tr);
       });
@@ -416,14 +585,68 @@
       var items = getItems();
       var total = items.length;
       var doneCount = 0;
-      items.forEach(function(it){ if (isDone(it)) doneCount++; });
+      var pendingCount = 0;
+
+      items.forEach(function(it) {
+        if (isDone(it)) doneCount++;
+        else pendingCount++;
+      });
+
+      document.getElementById("vCount").innerText = VIDEO_ITEMS.length;
+      document.getElementById("iCount").innerText = IMAGE_ITEMS.length;
+
+      document.getElementById("countPending").innerText = pendingCount;
+      document.getElementById("countDone").innerText = doneCount;
+      document.getElementById("countAll").innerText = total;
+
       var pct = total > 0 ? Math.round((doneCount / total) * 100) : 0;
       document.getElementById("statText").innerText = "Đã đăng: " + doneCount + " / " + total;
       document.getElementById("statPercent").innerText = pct + "%";
       document.getElementById("progressBar").style.width = pct + "%";
     }
 
-    // Khởi động
+    function copyText(txt, label) {
+      if (!txt) {
+        showToast("⚠️ Nội dung trống");
+        return;
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(txt).then(function() {
+          showToast("✓ Đã sao chép: " + label);
+        }).catch(function() {
+          fallbackCopy(txt, label);
+        });
+      } else {
+        fallbackCopy(txt, label);
+      }
+    }
+
+    function fallbackCopy(txt, label) {
+      var t = document.createElement("textarea");
+      t.value = txt;
+      t.style.position = "fixed";
+      t.style.opacity = "0";
+      document.body.appendChild(t);
+      t.select();
+      document.execCommand("copy");
+      document.body.removeChild(t);
+      showToast("✓ Đã sao chép: " + label);
+    }
+
+    function showToast(m) {
+      var t = document.getElementById("toastMsg");
+      t.innerText = m;
+      t.style.display = "block";
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(function() { t.style.display = "none"; }, 1800);
+    }
+
+    function openLightbox(src) {
+      document.getElementById("lightboxImg").src = src;
+      document.getElementById("lightbox").style.display = "flex";
+    }
+
+    // KHỞI ĐỘNG MẶC ĐỊNH LÀ VIDEO & CHƯA ĐĂNG
     switchTab("video");
   </script>
 </body>
